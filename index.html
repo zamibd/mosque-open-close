@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRAYER TIMING </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .container {
+            max-width: 500px;
+            margin-top: 50px;
+        }
+        .status {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .open {
+            color: green;
+        }
+        .close {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h2 class="mb-4">Prayer timing</h2>
+        <table class="table table-bordered bg-white">
+            <thead class="table-dark">
+                <tr><th>PRAYER</th><th>TIME</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Fajr</td><td id="fajr"></td></tr>
+                <tr><td>Dhuhr</td><td id="dhuhr"></td></tr>
+                <tr><td>Asr</td><td id="asr"></td></tr>
+                <tr><td>Maghrib</td><td id="maghrib"></td></tr>
+                <tr><td>Isha</td><td id="isha"></td></tr>
+            </tbody>
+        </table>
+        <p><strong>Parking Status:</strong> <span id="parking_status" class="status"></span></p>
+       <p><strong>Mosque Status:</strong> <span id="masjid_status" class="status"></span></p>
+    </div>
+
+    <script>
+        fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('fajr').innerText = data.fajr;
+            document.getElementById('dhuhr').innerText = data.dhuhr;
+            document.getElementById('asr').innerText = data.asr;
+            document.getElementById('maghrib').innerText = data.maghrib;
+            document.getElementById('isha').innerText = data.isha;
+
+            let parkingStatus = document.getElementById('parking_status');
+            parkingStatus.innerText = data.parking_status;
+            parkingStatus.classList.add(data.parking_status.toLowerCase());
+          
+           let masjidStatus = document.getElementById('masjid_status');
+            masjidStatus.innerText = data.masjid_status;
+            masjidStatus.classList.add(data.masjid_status.toLowerCase());
+          
+          
+        });
+    </script>
+</body>
+</html>
